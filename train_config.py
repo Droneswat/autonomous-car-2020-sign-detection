@@ -26,7 +26,8 @@ config.TRAIN.opt= 'Adam'
 
 
 config.MODEL = edict()
-config.MODEL.model_path = './model/'                                    # save directory
+# config.MODEL.model_path = './model'
+config.MODEL.model_path = '/content/model/'                                    # save directory
 config.MODEL.pretrained_model=None                                     ######
 #####
 config.MODEL.hin = 256                                                  # input size during training , 512  different with the paper
