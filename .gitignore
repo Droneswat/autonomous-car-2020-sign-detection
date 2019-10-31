@@ -1,4 +1,5 @@
 fake_data
 train.txt
 val.txt
-model
+/model
+/fake_data
