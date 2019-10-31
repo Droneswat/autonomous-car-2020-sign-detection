@@ -45,7 +45,7 @@ def main():
         model=FaceBoxes()
 
         ###run a time to build the model
-        image = np.zeros(shape=(1, 512, 512, 3), dtype=np.float32)
+        image = np.zeros(shape=(1, cfg.MODEL.hin, cfg.MODEL.win, 3), dtype=np.float32)
         model.inference(image)
 
     ## load pretrained weights

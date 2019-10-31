@@ -29,8 +29,9 @@ config.MODEL = edict()
 config.MODEL.model_path = './model/'                                    # save directory
 config.MODEL.pretrained_model=None                                     ######
 #####
-config.MODEL.hin = 512                                                  # input size during training , 512  different with the paper
-config.MODEL.win = 512
+config.MODEL.hin = 256                                                  # input size during training , 512  different with the paper
+config.MODEL.win = 256
+config.MODEL.num_classes = 3
 # config.MODEL.feature_maps_size=[[32,32],[16,16],[8,8]]
 config.MODEL.feature_maps_size=[[32, 32]]
 # config.MODEL.num_anchors=21824  ##it should be
@@ -53,7 +54,6 @@ config.DATA = edict()
 config.DATA.root_path=''
 config.DATA.train_txt_path='train.txt'
 config.DATA.val_txt_path='val.txt'
-config.DATA.NUM_CLASS=3
 
 config.DATA.cover_small_face=100.                      ##small faces are covered
 ############NOW the model is trained with RGB mode

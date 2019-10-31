@@ -21,17 +21,16 @@ def image_demo(data_dir):
 
             img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
-            boxes_class_1, boxes_class_2 = detector(img,0.3)
-            print('class 1 ', boxes_class_1)
-            print('class 2 ', boxes_class_2)
-            if boxes_class_1.shape[0] > 0:
-                for bbox in boxes_class_1:
-                    cv2.rectangle(img_show, (int(bbox[0]), int(bbox[1])),
-                                (int(bbox[2]), int(bbox[3])), (0, 255, 255), 4)
-            if boxes_class_2.shape[0] > 0:
-                for bbox in boxes_class_2:
-                    cv2.rectangle(img_show, (int(bbox[0]), int(bbox[1])),
-                                (int(bbox[2]), int(bbox[3])), (255, 0, 255), 4)
+            pred = detector(img,0.3)
+            # print('pred ', pred.shape, pred)
+
+            for i, pred_i in enumerate(pred):
+                if pred_i.shape[0] > 0:
+                    for bbox in pred_i:
+                        cv2.rectangle(img_show, (int(bbox[0]), int(bbox[1])),
+                                    (int(bbox[2]), int(bbox[3])), (255, 0, 255), 2)
+                        cv2.putText(img_show, str(i), (int(bbox[0]), int(bbox[1])), 
+                                    cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 255), 2)
 
             cv2.namedWindow('res',0)
             cv2.imshow('res',img_show)

@@ -34,55 +34,47 @@ class FaceDetector:
         image_fornet = np.expand_dims(image_fornet, 0)
 
 
-
-        start=time.time()
-        res= self.model.inference(image_fornet)
-
-        print('xx',time.time()-start)
-        boxes_class_1 = res['boxes_class_1'].numpy()
-        scores_class_1 = res['scores_class_1'].numpy()
-        num_boxes_class_1 = res['num_boxes_class_1'].numpy()
-        print(num_boxes_class_1)
-
-        num_boxes_class_1 = num_boxes_class_1[0]
-        boxes_class_1 = boxes_class_1[0][:num_boxes_class_1]
-        scores_class_1 = scores_class_1[0][:num_boxes_class_1]
-
-        to_keep_class_1 = scores_class_1 > score_threshold
-        boxes_class_1 = boxes_class_1[to_keep_class_1]
-        scores_class_1 = scores_class_1[to_keep_class_1]
-
-        boxes_class_2 = res['boxes_class_2'].numpy()
-        scores_class_2 = res['scores_class_2'].numpy()
-        num_boxes_class_2 = res['num_boxes_class_2'].numpy()
-        print(num_boxes_class_2)
-
-        num_boxes_class_2 = num_boxes_class_2[0]
-        boxes_class_2 = boxes_class_2[0][:num_boxes_class_2]
-        scores_class_2 = scores_class_2[0][:num_boxes_class_2]
-
-        to_keep_class_2 = scores_class_2 > score_threshold
-        boxes_class_2 = boxes_class_2[to_keep_class_2]
-        scores_class_2 = scores_class_2[to_keep_class_2]
-
         ###recorver to raw image
         scaler = np.array([cfg.MODEL.hin/scale_y,
                            cfg.MODEL.win/scale_x,
                            cfg.MODEL.hin/scale_y,
                            cfg.MODEL.win/scale_x], dtype='float32')
-        boxes_class_1 = boxes_class_1 * scaler
-        boxes_class_2 = boxes_class_2 * scaler
 
-        scores_class_1=np.expand_dims(scores_class_1, 0).reshape([-1,1])
-        scores_class_2=np.expand_dims(scores_class_2, 0).reshape([-1,1])
+        start=time.time()
+        res= self.model.inference(image_fornet)
 
-        #####the tf.nms produce ymin,xmin,ymax,xmax,  swap it in to xmin,ymin,xmax,ymax
-        for i in range(boxes_class_1.shape[0]):
-            boxes_class_1[i] = np.array([boxes_class_1[i][1], boxes_class_1[i][0], boxes_class_1[i][3],boxes_class_1[i][2]])
-        for i in range(boxes_class_2.shape[0]):
-            boxes_class_2[i] = np.array([boxes_class_2[i][1], boxes_class_2[i][0], boxes_class_2[i][3],boxes_class_2[i][2]])
+        print('xx',time.time()-start)
+        boxes = res['boxes'].numpy()
+        scores = res['scores'].numpy()
+        num_boxes = res['num_boxes'].numpy()
 
-        return np.concatenate([boxes_class_1, scores_class_1],axis=1), np.concatenate([boxes_class_2, scores_class_2],axis=1)
+        pred = []
+
+        for i in range(0, cfg.MODEL.num_classes-1):
+            boxes_i = boxes[i]
+            scores_i = scores[i]
+            num_boxes_i = num_boxes[i]
+
+            num_boxes_i = num_boxes_i[0]
+            boxes_i = boxes_i[0][:num_boxes_i]
+            scores_i = scores_i[0][:num_boxes_i]
+
+            to_keep_i = scores_i > score_threshold
+            boxes_i = boxes_i[to_keep_i]
+            scores_i = scores_i[to_keep_i]
+
+            boxes_i = boxes_i * scaler
+            scores_i = np.expand_dims(scores_i, 0).reshape([-1,1])
+
+            #####the tf.nms produce ymin,xmin,ymax,xmax,  swap it in to xmin,ymin,xmax,ymax
+            for i in range(boxes_i.shape[0]):
+                boxes_i[i] = np.array([boxes_i[i][1], boxes_i[i][0], boxes_i[i][3],boxes_i[i][2]])
+
+            pred.append(np.concatenate([boxes_i, scores_i], axis=1))
+        
+        pred = np.array(pred)
+
+        return pred
 
     def preprocess(self,image,target_height,target_width,label=None):
 
@@ -101,11 +93,6 @@ class FaceDetector:
         bimage[:h_, :w_, :] = image
 
         return bimage,scale_x,scale_y
-
-
-
-
-
 
 
     def init_model(self,*args):
