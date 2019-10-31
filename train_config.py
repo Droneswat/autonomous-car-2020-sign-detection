@@ -11,7 +11,7 @@ config.TRAIN = edict()
 #### below are params for dataiter
 config.TRAIN.num_gpu = 1
 config.TRAIN.process_num = 2               ####process num
-config.TRAIN.prefetch_size = 30               ####Q size for data provider
+config.TRAIN.prefetch_size = 32               ####Q size for data provider
 
 config.TRAIN.batch_size = 32
 config.TRAIN.log_interval = 10
@@ -21,7 +21,7 @@ config.TRAIN.lr_value_every_epoch = [0.00001,0.00001,0.001,0.0001,0.00001,0.0000
 config.TRAIN.lr_decay_every_epoch = [1,2,120,160,200]
 config.TRAIN.weight_decay_factor = 5.e-4                                    ###########l2
 config.TRAIN.mix_precision=False                                            ##use mix precision to speedup
-config.TRAIN.vis= False
+config.TRAIN.vis= True
 config.TRAIN.opt= 'Adam'
 
 
@@ -55,7 +55,7 @@ config.DATA.root_path=''
 config.DATA.train_txt_path='train.txt'
 config.DATA.val_txt_path='val.txt'
 
-config.DATA.cover_small_face=100.                      ##small faces are covered
+config.DATA.cover_small_face = 50                      ##small faces are covered
 ############NOW the model is trained with RGB mode
 config.DATA.PIXEL_MEAN = [123., 116., 103.]   ###rgb
 config.DATA.PIXEL_STD = [58., 57., 57.]

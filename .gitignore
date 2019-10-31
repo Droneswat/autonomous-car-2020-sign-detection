@@ -3,3 +3,4 @@ train.txt
 val.txt
 /model
 /fake_data
+/simulator_data

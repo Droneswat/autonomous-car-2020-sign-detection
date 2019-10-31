@@ -13,10 +13,10 @@ with open(annotation_file, "r") as fp:
         labels = content.split(' ')
         image = cv2.imread(img_path)
         
+        print(img_path)
         for label in labels:
             bbox = np.array(label.split(','), dtype=np.float)
-            print(bbox)
-            cv2.rectangle(image, (int(bbox[0]), int(bbox[1])), (int(bbox[2]), int(bbox[3])), (255, 0, 255), 10)
+            cv2.rectangle(image, (int(bbox[0]), int(bbox[1])), (int(bbox[2]), int(bbox[3])), (255, 0, 255), 1)
 
         image = cv2.resize(image, (256, 256))
         cv2.imshow("Check", image)
