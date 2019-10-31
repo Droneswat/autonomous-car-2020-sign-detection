@@ -52,8 +52,10 @@ config.TEST.parallel_iterations=8
 
 config.DATA = edict()
 config.DATA.root_path=''
-config.DATA.train_txt_path='train.txt'
-config.DATA.val_txt_path='val.txt'
+# config.DATA.train_txt_path='train.txt'
+# config.DATA.val_txt_path='val.txt'
+config.DATA.train_txt_path='/content/trafficsign_faceboxes_tensorflow_2/train_colab.txt'
+config.DATA.val_txt_path='/content/trafficsign_faceboxes_tensorflow_2/val_colab.txt'
 
 config.DATA.cover_small_face = 50                      ##small faces are covered
 ############NOW the model is trained with RGB mode
