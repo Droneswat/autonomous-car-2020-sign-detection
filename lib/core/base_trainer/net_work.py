@@ -179,6 +179,8 @@ class Train(object):
             tf.distribute.ReduceOp.SUM, per_replica_loss, axis=None)
         total_loss+=current_loss
         num_test_batches += 1
+        tf.print('.', end=' ')
+        
       return total_loss, num_test_batches
 
     if self.enable_function:

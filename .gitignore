@@ -2,6 +2,7 @@ fake_data
 train.txt
 val.txt
 /model
+/checkpoints
 /fake_data
 /simulator_data
 /annotations

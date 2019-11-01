@@ -21,7 +21,7 @@ def image_demo(data_dir):
 
             img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
-            pred = detector(img,0)
+            pred = detector(img,0.4)
             # print('pred ', pred.shape, pred)
 
             for i, pred_i in enumerate(pred):

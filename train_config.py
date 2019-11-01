@@ -26,10 +26,15 @@ config.TRAIN.opt= 'Adam'
 
 
 config.MODEL = edict()
-# config.MODEL.model_path = './model'
+
+# config.MODEL.model_path = './model'                         # save directory
+# config.MODEL.checkpoints_path = './checkpoints/my_checkpoints'
+# config.MODEL.pretrained_model= './checkpoints/my_checkpoints'                                     ######
+
 config.MODEL.model_path = '/content/drive/My Drive/model'                                    # save directory
 config.MODEL.checkpoints_path = '/content/drive/My Drive/checkpoints/my_checkpoints'
 config.MODEL.pretrained_model= '/content/drive/My Drive/checkpoints/my_checkpoints'                                     ######
+
 #####
 config.MODEL.hin = 256                                                  # input size during training , 512  different with the paper
 config.MODEL.win = 256
