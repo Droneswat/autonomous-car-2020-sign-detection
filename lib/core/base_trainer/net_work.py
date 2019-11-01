@@ -158,10 +158,12 @@ class Train(object):
         images_per_sec=cfg.TRAIN.batch_size/time_cost_per_batch
         if self.iter_num%cfg.TRAIN.log_interval==0:
           tf.print('epoch: %d '
-                      'iter_num: %d, '
-                      'loss_value: %.6f,  '
-                      'speed: %d images/sec ' \
-                      % (epoch_num,self.iter_num, current_loss,images_per_sec))
+                    'iter_num: %d, '
+                    'loss_value: %.6f,  '
+                    'speed: %d images/sec ' \
+                    % (epoch_num,self.iter_num, current_loss,images_per_sec))
+          self.model.save_weights(cfg.MODEL.checkpoints_path)
+          
 
       return total_loss, num_train_batches
 

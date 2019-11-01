@@ -14,7 +14,7 @@ config.TRAIN.process_num = 2               ####process num
 config.TRAIN.prefetch_size = 100               ####Q size for data provider
 
 config.TRAIN.batch_size = 100
-config.TRAIN.log_interval = 10
+config.TRAIN.log_interval = 100
 config.TRAIN.epoch = 300
 
 config.TRAIN.lr_value_every_epoch = [0.00001,0.00001,0.001,0.0001,0.00001,0.000001]          ####lr policy
@@ -27,7 +27,8 @@ config.TRAIN.opt= 'Adam'
 
 config.MODEL = edict()
 # config.MODEL.model_path = './model'
-config.MODEL.model_path = '/content/model/'                                    # save directory
+config.MODEL.model_path = '/content/drive/My Drive/model'                                    # save directory
+config.MODEL.checkpoints_path = '/content//drive/My Drive/checkpoints'
 config.MODEL.pretrained_model=None                                     ######
 #####
 config.MODEL.hin = 256                                                  # input size during training , 512  different with the paper
