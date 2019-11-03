@@ -13,7 +13,9 @@ def image_demo(data_dir):
     args.model
     detector = FaceDetector(args.model)
 
-    for pic in glob.glob(data_dir + '/*'):
+    files = glob.glob(data_dir + '/*')
+    files.sort(key=os.path.getmtime)
+    for pic in files:
         if pic.endswith('jpg'):
             img = cv2.imread(pic)
 
